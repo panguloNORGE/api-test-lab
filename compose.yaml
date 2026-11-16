@@ -1,0 +1,17 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "5000:5000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 2s
+      retries: 15
+
+  tests:
+    build: ./tests
+    environment:
+      API_URL: http://api:5000
+    depends_on:
+      api:
+        condition: service_healthy
