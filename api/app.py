@@ -25,7 +25,7 @@ def create_item():
     item = {"id": next_id, "name": name, "done": bool(data.get("done", False))}
     items[next_id] = item
     next_id += 1
-    return jsonify(item), 201
+    return jsonify(item), 200
 
 
 @app.get("/items/<int:item_id>")
